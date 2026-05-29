@@ -1,0 +1,1557 @@
+<!-- Replace YOUR-DOMAIN.com before launch -->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-width=1.0" name="viewport"/>
+<title>How to Securely Delete Files So They Cannot Be Recovered</title>
+<meta content="A comprehensive guide on how to securely delete files, sanitize SSDs and HDDs, and use file shredding software to ensure data is permanently unrecoverable." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&amp;family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root {
+    --color-background: #FFFFFF;
+    --color-primary-accent: #E63329;
+    --color-secondary-accent: #000000;
+    --color-grid-line: #EEEEEE;
+    --color-content-bg: #F9F9F9;
+    --color-body-text: #111111;
+    --color-muted: #5F5F5F;
+    --color-border: #EEEEEE;
+    --color-heading-text: #000000;
+    --color-hero-bg: #FFFFFF;
+    --color-meta-text: #555555;
+    --color-saas-bg: #000000;
+    --font-heading: 'Barlow Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body: 'Work Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --max-reading-width: 790px;
+    --max-wide-width: 1180px;
+    --section-padding-v: 86px;
+    --grid-unit: 24px;
+    --transition-speed: 0.28s;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-body);
+    background: var(--color-background);
+    color: var(--color-body-text);
+    line-height: 1.75;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        linear-gradient(to right, rgba(238,238,238,.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(238,238,238,.34) 1px, transparent 1px);
+    background-size: 96px 96px, 100% 24px;
+    opacity: .62;
+}
+
+h1, h2, h3, h4, h5, .logo-text {
+    font-family: var(--font-heading);
+    color: var(--color-heading-text);
+    line-height: 1;
+    margin-bottom: 1rem;
+    letter-spacing: .01em;
+}
+h1 {
+    font-size: clamp(48px, 7.7vw, 80px);
+    font-weight: 700;
+    line-height: .9;
+    text-transform: uppercase;
+    max-width: 930px;
+}
+h2 {
+    font-size: clamp(30px, 4.2vw, 36px);
+    font-weight: 700;
+    line-height: 1.02;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    padding-bottom: .75rem;
+}
+h2::after {
+    content: "";
+    display: block;
+    width: 88px;
+    height: 4px;
+    margin-top: 18px;
+    background: var(--color-primary-accent);
+}
+h3 {
+    font-size: clamp(24px, 3vw, 29px);
+    font-weight: 700;
+    margin-top: 1.75rem;
+    letter-spacing: .025em;
+}
+h4 { font-size: 1.22rem; font-weight: 700; margin-top: 1rem; }
+p { margin-bottom: 1.25rem; }
+a { color: var(--color-secondary-accent); text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color var(--transition-speed), background var(--transition-speed), border-color var(--transition-speed), transform var(--transition-speed); }
+a:hover { color: var(--color-primary-accent); }
+ul, ol { margin: 0 0 1.25rem 2rem; }
+li { margin-bottom: .55rem; }
+img { max-width: 100%; height: auto; display: block; }
+code {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .92em;
+    background: #F3F3F3;
+    border: 1px solid var(--color-border);
+    padding: .05rem .35rem;
+}
+
+.container {
+    max-width: var(--max-wide-width);
+    margin: 0 auto;
+    padding: 0 5%;
+}
+.text-container {
+    max-width: var(--max-reading-width);
+    margin: 0 auto;
+}
+section { padding: var(--section-padding-v) 0; position: relative; }
+.alt-bg {
+    background:
+        linear-gradient(to right, rgba(238,238,238,.8) 1px, transparent 1px),
+        var(--color-content-bg);
+    background-size: 96px 96px;
+}
+.label {
+    display: inline-block;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-weight: 600;
+    color: var(--color-primary-accent);
+    margin-bottom: 1rem;
+}
+
+/* Header & Navigation */
+header {
+    position: sticky;
+    top: 0;
+    background-color: rgba(255,255,255,.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 1000;
+    padding: .8rem 0;
+}
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+.brand-lockup,
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .8rem;
+}
+.brand-mark {
+    width: 38px;
+    height: 38px;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 38px;
+}
+.brand-mark svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: var(--color-secondary-accent);
+    letter-spacing: .035em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+    gap: .42rem;
+    word-spacing: .3rem;
+}
+.nav-links {
+    display: flex;
+    gap: 1.7rem;
+    align-items: center;
+    position: relative;
+    --nav-underline-left: 0px;
+    --nav-underline-width: 0px;
+}
+.nav-links::after {
+    content: "";
+    position: absolute;
+    left: var(--nav-underline-left);
+    bottom: -12px;
+    width: var(--nav-underline-width);
+    height: 3px;
+    background: var(--color-primary-accent);
+    transition: left .32s ease, width .32s ease;
+}
+.nav-links a {
+    font-size: .77rem;
+    color: var(--color-secondary-accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--color-primary-accent); }
+.hamburger {
+    display: none;
+    background: none;
+    border: 1px solid var(--color-secondary-accent);
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: var(--color-secondary-accent);
+    width: 44px;
+    height: 44px;
+    border-radius: 0;
+}
+
+/* Sticky section number rail */
+.section-number-nav {
+    position: fixed;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 900;
+    display: grid;
+    gap: .55rem;
+}
+.section-number-nav a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 32px;
+    color: #8D8D8D;
+    border-left: 2px solid var(--color-grid-line);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    line-height: 1;
+    text-decoration: none;
+}
+.section-number-nav a.active {
+    color: var(--color-primary-accent);
+    border-left-color: var(--color-primary-accent);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .84rem 1.15rem;
+    border-radius: 0;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-speed);
+    cursor: pointer;
+    border: 2px solid var(--color-secondary-accent);
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    font-size: .78rem;
+}
+.btn-outline,
+.btn-filled,
+.btn-white {
+    background: var(--color-secondary-accent);
+    color: #fff;
+    border-color: var(--color-secondary-accent);
+}
+.btn-outline:hover,
+.btn-filled:hover,
+.btn-white:hover {
+    background: var(--color-primary-accent);
+    border-color: var(--color-primary-accent);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Article Hero */
+.article-hero {
+    background-color: var(--color-hero-bg);
+    background-image: linear-gradient(to bottom, rgba(238,238,238,.85) 1px, transparent 1px);
+    background-size: 100% 24px;
+    padding: calc(var(--section-padding-v) * 1.35) 0 var(--section-padding-v);
+}
+.article-hero .text-container {
+    border-left: 4px solid var(--color-primary-accent);
+    padding-left: clamp(1.4rem, 3vw, 3rem);
+    max-width: 1050px;
+}
+.breadcrumb {
+    font-size: .78rem;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+}
+.breadcrumb a { color: var(--color-muted); text-decoration: none; }
+.article-hero h1 + p {
+    max-width: 780px;
+    font-size: 1.12rem !important;
+    color: var(--color-body-text) !important;
+}
+.article-hero h1 + p::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin-top: 1.75rem;
+    background: var(--color-primary-accent);
+}
+.hero-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: .78rem;
+    color: var(--color-muted);
+    margin: 1.5rem 0 2rem;
+    padding-top: 0;
+    border-top: 0;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+}
+.quick-answer {
+    background-color: var(--color-content-bg);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary-accent);
+    padding: 1.5rem;
+    border-radius: 0;
+    margin-bottom: 2rem;
+    max-width: 900px;
+}
+.quick-answer .qa-label {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: var(--color-primary-accent);
+    margin-bottom: .65rem;
+    display: block;
+}
+.quick-answer p:last-child { margin-bottom: 0; }
+
+/* Images */
+.editorial-image,
+.hero-art,
+.image-strip {
+    margin: 2rem 0;
+    border: 1px solid var(--color-border);
+    background: #fff;
+    padding: var(--grid-unit);
+    border-radius: 0;
+}
+.hero-art {
+    max-width: 880px;
+    margin-top: 2.4rem;
+}
+.editorial-image img,
+.hero-art img,
+.image-strip img,
+.saas-mockup img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    border: 1px solid var(--color-border);
+}
+.image-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+.image-strip img {
+    background: var(--color-content-bg);
+}
+
+/* Table of Contents */
+.toc-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: none;
+    margin-bottom: 3rem;
+}
+.toc-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    line-height: 1;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+.toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-list li {
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--color-grid-line);
+    padding: .9rem 0;
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-list a {
+    color: var(--color-body-text);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+}
+.toc-list a:hover { color: var(--color-primary-accent); padding-left: .3rem; }
+
+/* Manifesto & Interactive */
+.manifesto-header {
+    text-align: left;
+    font-size: 2.5rem;
+    max-width: 900px;
+    margin: 0 0 2.2rem;
+    line-height: 1.3;
+}
+.view-switcher-widget,
+.interactive-picker,
+.callout,
+.risk-meter-box,
+.masonry-card,
+.accordion-item,
+.pricing-row {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+    border-radius: 0;
+    box-shadow: none;
+    transition: border-color var(--transition-speed), border-left-color var(--transition-speed), transform var(--transition-speed);
+}
+.view-switcher-widget:hover,
+.interactive-picker:hover,
+.callout:hover,
+.risk-meter-box:hover,
+.masonry-card:hover,
+.accordion-item:hover,
+.pricing-row:hover {
+    border-left: 4px solid var(--color-primary-accent);
+}
+.view-switcher-widget {
+    overflow: hidden;
+    margin: 2rem 0;
+}
+.switcher-controls {
+    display: flex;
+    background: var(--color-secondary-accent);
+    border-bottom: 1px solid var(--color-secondary-accent);
+}
+.switcher-btn {
+    flex: 1;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    border-right: 1px solid #242424;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: .82rem;
+    cursor: pointer;
+    color: #fff;
+    transition: all var(--transition-speed);
+    text-transform: uppercase;
+    letter-spacing: .14em;
+}
+.switcher-btn.active {
+    background: var(--color-primary-accent);
+    color: #fff;
+    border-bottom: 0;
+}
+.switcher-content { padding: 2rem; display: none; }
+.switcher-content.active { display: block; animation: fadeIn .3s ease-in; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+.disk-visual {
+    height: 44px;
+    width: 100%;
+    border: 1px solid var(--color-secondary-accent);
+    border-radius: 0;
+    display: flex;
+    overflow: hidden;
+    margin-top: 1rem;
+    background: #fff;
+}
+.block-standard {
+    flex: 1;
+    border-right: 1px solid #fff;
+    background: var(--color-secondary-accent);
+    color: #fff;
+    font-size: .68rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+.block-deleted { background: var(--color-content-bg); color: var(--color-muted); }
+.block-secure { background: var(--color-primary-accent); color: #fff; }
+
+.interactive-picker {
+    background: var(--color-content-bg);
+    padding: 2rem;
+    border-left: 4px solid var(--color-primary-accent);
+    margin: 2rem 0;
+}
+.picker-select {
+    width: 100%;
+    padding: .85rem;
+    font-family: var(--font-body);
+    border: 1px solid var(--color-secondary-accent);
+    border-radius: 0;
+    margin: 1rem 0;
+    font-size: 1rem;
+    background: #fff;
+}
+.picker-result {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 0;
+    display: none;
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+}
+.difficulty-bar {
+    display: block;
+    height: 8px;
+    background: #EFEFEF;
+    margin-top: .8rem;
+    position: relative;
+    overflow: hidden;
+}
+.difficulty-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    background: var(--color-primary-accent);
+    transition: width 1s cubic-bezier(.2,.8,.2,1);
+}
+.difficulty-bar.is-filled::after { width: var(--fill, 50%); }
+
+.callout {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+.callout h4 { margin-top: 0; font-size: 1.1rem; }
+
+/* Premium SaaS Moment */
+.premium-saas-band {
+    background: var(--color-secondary-accent);
+    color: #fff;
+    padding: calc(var(--section-padding-v) * 1.15) 0;
+    margin: 4rem 0;
+}
+.premium-saas-band h2,
+.premium-saas-band h3,
+.premium-saas-band h2::after { color: #fff; }
+.premium-saas-band h2::after { background: var(--color-primary-accent); }
+.saas-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
+    gap: 4rem;
+    align-items: center;
+}
+.saas-mockup {
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.32);
+    border-radius: 0;
+    padding: 1rem;
+    box-shadow: none;
+}
+.saas-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin: 2rem 0;
+}
+.saas-chip {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.45);
+    padding: .5rem .75rem;
+    border-radius: 0;
+    font-size: .72rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: .13em;
+}
+
+/* Feature cards */
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    align-items: stretch;
+    border: 1px solid var(--color-border);
+    background: var(--color-border);
+    margin-top: 2rem;
+}
+.masonry-card {
+    padding: 2rem;
+    min-height: 100%;
+}
+.masonry-card:nth-child(even) { margin-top: 0; background: var(--color-content-bg); }
+
+/* Comparison Table */
+.comparison-wrapper { overflow-x: auto; margin: 2rem 0; border: 1px solid var(--color-border); background: #fff; }
+.comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+}
+.comp-table th,
+.comp-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+}
+.comp-table th {
+    background: var(--color-secondary-accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+}
+.comp-table th:nth-child(3) { background: var(--color-primary-accent); }
+.comp-table tbody tr:nth-child(even) { background: var(--color-content-bg); }
+.comp-table tbody tr:hover { background: rgba(230,51,41,.07); }
+.comp-table .col-hover { background: rgba(230,51,41,.08) !important; }
+.row-highlight {
+    background: rgba(230,51,41,.06);
+    border-left: 4px solid var(--color-primary-accent);
+}
+.row-highlight td { font-weight: 600; }
+
+/* Accordion & Pricing */
+.accordion-item {
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+.accordion-btn {
+    width: 100%;
+    text-align: left;
+    padding: 1.25rem 1.5rem;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-heading-text);
+}
+.accordion-content {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed) ease-out;
+}
+.accordion-content-inner { padding: 1rem 0 1.5rem; }
+.accordion-btn.active { background: var(--color-content-bg); }
+
+.pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+}
+.pricing-details h4 { margin-bottom: .25rem; }
+.pricing-details p { margin: 0; font-size: .92rem; color: var(--color-muted); }
+
+.faq-group { margin-bottom: 3rem; }
+.faq-group-title {
+    color: var(--color-secondary-accent);
+    border-bottom: 1px solid var(--color-secondary-accent);
+    padding-bottom: .75rem;
+    margin-bottom: 1.5rem;
+}
+.faq-group .accordion-item {
+    border-width: 0 0 1px 0;
+}
+.faq-group .accordion-content-inner {
+    padding-left: 24px;
+}
+
+/* Risk meter */
+.risk-meter-box { padding: 2rem; margin: 2rem 0; }
+.risk-meter-options label { display: block; margin-bottom: 1rem; cursor: pointer; }
+.risk-meter-bar {
+    height: 12px;
+    background: #eee;
+    border-radius: 0;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+.risk-fill { height: 100%; width: 0%; transition: width .4s ease, background .4s; }
+.risk-result-text { font-weight: 700; }
+
+/* Footer */
+footer {
+    background-color: var(--color-secondary-accent);
+    color: #fff;
+    padding: 4rem 0 2rem;
+}
+footer a { color: #fff; text-decoration-color: rgba(255,255,255,.45); }
+footer a:hover { color: #fff; text-decoration-color: var(--color-primary-accent); }
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.15fr .8fr .8fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: start;
+}
+.footer-brand h3 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.35rem;
+    letter-spacing: .035em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: baseline;
+    gap: .42rem;
+    word-spacing: .3rem;
+}
+.footer-disclosure {
+    font-size: .85rem;
+    color: #CFCFCF;
+    border-top: 1px solid rgba(255,255,255,.18);
+    padding-top: 2rem;
+    text-align: center;
+}
+.grid-legend {
+    border: 1px solid rgba(255,255,255,.28);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+.grid-legend div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.grid-legend div:last-child { border-bottom: 0; }
+.grid-legend span {
+    padding: .55rem .65rem;
+}
+.grid-legend span:first-child {
+    color: #AFAFAF;
+    border-right: 1px solid rgba(255,255,255,.2);
+}
+
+/* On-scroll reveal */
+.reveal {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(18px);
+    transition: clip-path .85s cubic-bezier(.2,.8,.2,1), transform .85s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.is-visible {
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+}
+
+@media (max-width: 1180px) {
+    .section-number-nav { display: none; }
+}
+@media (max-width: 900px) {
+    .saas-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .masonry-grid { grid-template-columns: 1fr; }
+    .image-strip { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+    :root { --section-padding-v: 64px; }
+    body::before { display: none; }
+    .article-hero { background-image: none; }
+    .article-hero .text-container {
+        border-left-width: 2px;
+        padding-left: 1.25rem;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 1.5rem 5%;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .nav-links::after { display: none; }
+    .nav-links.active { display: flex; }
+    .hamburger { display: block; }
+    .pricing-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+<div class="container nav-inner">
+<div class="brand-lockup"><span aria-hidden="true" class="brand-mark">
+<svg focusable="false" role="img" viewbox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#000000" height="56" width="56" x="4" y="4"></rect>
+<path d="M32 10L49 17V31C49 42 42.2 51.4 32 55C21.8 51.4 15 42 15 31V17L32 10Z" fill="#E63329"></path>
+<path d="M24 31.5L29.2 36.7L41 24.8" fill="none" stroke="#FFFFFF" stroke-linecap="square" stroke-linejoin="miter" stroke-width="5"></path>
+<path d="M4 4H60V60H4V4Z" fill="none" stroke="#FFFFFF" stroke-width="2"></path>
+</svg>
+</span><div class="logo-text" aria-label="Secure Erase Guide"><span>Secure</span><span>Erase</span><span>Guide</span></div></div>
+<button aria-expanded="false" aria-label="Toggle menu" class="hamburger">☰</button>
+<nav aria-label="Primary" class="nav-links">
+<a href="#overview">Guide</a>
+<a href="#methods">Methods</a>
+<a href="#ssd-hdd">SSD vs HDD</a>
+<a href="#comparison">Comparison</a>
+<a href="#troubleshooting">Troubleshooting</a>
+<a class="btn btn-outline" href="#recommendation" style="padding: 0.4rem 1rem; font-size: 0.85rem;">See Our Top Pick →</a>
+</nav>
+</div>
+</header><aside aria-hidden="true" class="section-number-nav"><a data-final="01" data-section="overview" href="#overview"><span>00</span></a><a data-final="02" data-section="methods" href="#methods"><span>00</span></a><a data-final="03" data-section="ssd-hdd" href="#ssd-hdd"><span>00</span></a><a data-final="04" data-section="recommendation" href="#recommendation"><span>00</span></a><a data-final="05" data-section="comparison" href="#comparison"><span>00</span></a><a data-final="06" data-section="troubleshooting" href="#troubleshooting"><span>00</span></a><a data-final="07" data-section="pricing" href="#pricing"><span>00</span></a><a data-final="08" data-section="faq" href="#faq"><span>00</span></a></aside>
+<main>
+<!-- S1: Article Hero -->
+<section class="article-hero">
+<div class="container text-container">
+<div class="breadcrumb">
+<a href="#">Home</a> / <a href="#">Data Security</a> / Secure Deletion
+                </div>
+<h1>How to Securely Delete Files So They Cannot Be Recovered</h1>
+<p style="font-size: 1.15rem; color: var(--color-meta-text);">When you empty your computer's recycle bin or trash, your files aren't actually gone. Anyone with basic data recovery software can retrieve them. Here is exactly how to permanently sanitize your data, whether you're selling a PC, disposing of an SSD, or protecting highly sensitive business files.</p>
+<div class="hero-meta">
+<span>Editorial Team</span>
+<span>Updated recently</span>
+<span>14 min read</span>
+</div>
+<div class="quick-answer">
+<span class="qa-label">Quick Answer</span>
+<p>To permanently delete files so they cannot be recovered, you must overwrite the raw storage sectors where the data resides using a <a href="https://www.newsoftwares.net/download/folderlock10-en/folderlock10-en.exe" rel="noopener noreferrer" target="_blank">file shredding tool</a> or secure erase command. Regular deletion only removes the file directory index, leaving the actual file intact. For standard hard drives (HDDs), tools that use multi-pass algorithms (like DoD 5220.22-M) are effective. For Solid State Drives (SSDs), you must use manufacturer ATA Secure Erase commands or purpose-built cryptographic shredding software, as standard overwriting is bypassed by SSD wear-leveling controllers.</p>
+</div><figure class="hero-art reveal"><img alt="Folder Lock file shredder screen for permanently deleting sensitive files" decoding="async" loading="eager" src="https://i.ibb.co/Ndh0Qc8T/folder-lock-10-screenshot-safeguard-shred-files.png"/></figure>
+</div>
+</section>
+<!-- S2: Table of Contents -->
+<section style="padding-top: 0;">
+<div class="container text-container">
+<div class="toc-card reveal">
+<div class="toc-title">Inside this guide</div>
+<ul class="toc-list">
+<li><a href="#overview">Why Deleted Files Are Not Really Gone <span>↓</span></a></li>
+<li><a href="#ssd-hdd">SSD vs HDD: How Secure Deletion Differs <span>↓</span></a></li>
+<li><a href="#methods">How to Permanently Delete Files in Windows and Mac <span>↓</span></a></li>
+<li><a href="#recommendation">The Tool We Recommend for Most Users <span>↓</span></a></li>
+<li><a href="#comparison">Methods Comparison Table <span>↓</span></a></li>
+<li><a href="#troubleshooting">Troubleshooting &amp; Owner Recovery <span>↓</span></a></li>
+<li><a href="#faq">Frequently Asked Questions <span>↓</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- S3: Overview & Interactive Switcher -->
+<section class="alt-bg" id="overview">
+<div class="container text-container">
+<span class="label">The Fundamentals</span>
+<h2>Why Regular Deletion Is Not Enough</h2>
+<p>Understanding how file systems work is the first step to securing your data. When you delete a file and empty the Recycle Bin or macOS Trash, the operating system does not remove the file's contents from your drive. Instead, it deletes the file's entry in the master file table (MFT) or directory index.</p>
+<p>Think of it like removing a chapter's title from a book's table of contents. The pages of that chapter are still completely intact inside the book—the reader just has to flip through the pages to find them. This is how data recovery software operates; it bypasses the "table of contents" and reads the raw drive sectors.</p><figure class="editorial-image reveal"><img alt="Digital data traces showing why deleted files can remain recoverable" decoding="async" loading="lazy" src="https://i.ibb.co/nNF9H8XM/digital-tracks-and-history.jpg"/></figure>
+<!-- Signature Interactive Detail: View Switcher -->
+<div class="view-switcher-widget reveal">
+<div class="switcher-controls">
+<button class="switcher-btn active" data-target="view-standard">Standard Deletion</button>
+<button class="switcher-btn" data-target="view-secure">Secure Wipe (Overwriting)</button>
+</div>
+<div class="switcher-content active" id="view-standard">
+<h4>What happens on the disk:</h4>
+<p>The OS marks the space as "available for use." The actual binary data (1s and 0s) remains on the platter or flash memory until new files happen to overwrite it. A forensic tool can extract it immediately.</p>
+<div class="disk-visual">
+<div class="block-standard block-deleted" style="flex:0.2;">Index Deleted</div>
+<div class="block-standard" style="flex:0.8;">Data Intact (Recoverable)</div>
+</div>
+</div>
+<div class="switcher-content" id="view-secure">
+<h4>What happens on the disk:</h4>
+<p>A secure shredder physically overwrites the sectors with random characters, zeros, or complex algorithms (like the Gutmann method or DoD standard). The original data is physically destroyed.</p>
+<div class="disk-visual">
+<div class="block-standard block-deleted" style="flex:0.2;">Index Deleted</div>
+<div class="block-standard block-secure" style="flex:0.8;">Overwritten: 01010101 (Destroyed)</div>
+</div>
+</div>
+</div>
+<h3>Data Sanitization Standards Explained</h3>
+<p>When organizations need to securely wipe data, they refer to algorithmic standards that dictate how many times data must be overwritten to prevent even microscopic magnetic analysis from retrieving it.</p>
+<ul>
+<li><strong>DoD 5220.22-M:</strong> The U.S. Department of Defense standard. It overwrites data with zeros, then ones, then random characters (3 passes).</li>
+<li><strong>NIST 800-88:</strong> The modern industry standard. It recognizes that for modern high-density drives, a single overwrite pass with a cryptographic erase is often sufficient.</li>
+<li><strong>Gutmann Method:</strong> A legacy 35-pass algorithm designed in 1996. While mathematically impressive, it is overkill for modern drives and takes an exceptionally long time.</li>
+</ul><figure class="editorial-image reveal"><img alt="Data security concept illustration for file sanitization standards" decoding="async" loading="lazy" src="https://i.ibb.co/hFG13q8F/types-of-data-security.jpg"/></figure>
+</div>
+</section>
+<!-- S4: Methods Guide Header (Manifesto) & Interactive Picker -->
+<section id="methods">
+<div class="container text-container">
+<div class="manifesto-header">
+<h2>How to Do Secure File Deletion Correctly</h2>
+</div>
+<p>The exact method you should use depends entirely on what kind of storage device you are targeting. Using an old HDD wiping tool on a modern SSD can actually wear out the drive without fully destroying the data.</p><figure class="editorial-image reveal"><img alt="Step by step security process illustration for secure file deletion" decoding="async" loading="lazy" src="https://i.ibb.co/C3585xYG/how-to-security-steps-illustration.png"/></figure>
+<!-- Interactive Picker -->
+<div class="interactive-picker reveal">
+<h3 style="margin-top:0;">Secure Deletion Method Picker</h3>
+<p>Select the device you are trying to wipe to see the recommended approach:</p>
+<select class="picker-select" id="device-picker">
+<option value="">-- Choose Storage Type --</option>
+<option value="hdd">Spinning Hard Drive (HDD) or <a href="https://www.analyticsinsight.net/tech-news/how-to-encrypt-and-protect-usb-flash-drives-external-drives-and-memory-cards" rel="noopener noreferrer" target="_blank">USB Flash Drive</a></option>
+<option value="ssd">Solid State Drive (SSD) or NVMe</option>
+<option value="mobile">Mobile Device (Android / iOS)</option>
+<option value="cloud"><a href="https://www.windowscentral.com/how-encrypt-data-storing-it-cloud-and-why-you-should" rel="noopener noreferrer" target="_blank">Cloud Storage</a> (Dropbox / Google Drive)</option>
+</select>
+<div class="picker-result" id="picker-result-hdd">
+<h4>Recommendation: Multi-Pass File Shredder</h4>
+<p>Standard hard drives store data magnetically. A 1-pass to 3-pass file shredder (like DoD 5220.22-M) will successfully overwrite the sectors and permanently destroy the files.</p>
+<span aria-hidden="true" class="difficulty-bar" style="--fill:45%;"></span></div>
+<div class="picker-result" id="picker-result-ssd">
+<h4>Recommendation: ATA Secure Erase or Cryptographic Shredding</h4>
+<p><strong>Warning:</strong> Standard file shredders don't work reliably on SSDs due to "Wear Leveling" controllers moving data around. You must use the manufacturer's secure erase tool (via BIOS) or a software tool specifically designed with SSD cryptographic deletion capabilities.</p>
+<span aria-hidden="true" class="difficulty-bar" style="--fill:80%;"></span></div>
+<div class="picker-result" id="picker-result-mobile">
+<h4>Recommendation: Factory Reset with Hardware Encryption</h4>
+<p>Modern iOS and Android phones encrypt data by default. To securely delete data from a phone so it cannot be recovered, simply perform a Factory Reset. This destroys the master decryption key, instantly turning all data into unreadable static.</p>
+<span aria-hidden="true" class="difficulty-bar" style="--fill:55%;"></span></div>
+<div class="picker-result" id="picker-result-cloud">
+<h4>Recommendation: Delete + Trash Empty + Credential Revoke</h4>
+<p>You cannot "overwrite" sectors on Google Drive. You must delete the file, permanently empty the cloud trash, and ensure there are no local synced copies on your linked devices.</p>
+<span aria-hidden="true" class="difficulty-bar" style="--fill:35%;"></span></div>
+</div><figure class="editorial-image reveal"><img alt="External hard drive connected for secure data wiping and file sanitization" decoding="async" loading="lazy" src="https://i.ibb.co/pvWpNNNP/External-Hard-Drive-Support.jpg"/></figure>
+</div>
+</section>
+<!-- SSD vs HDD caveat -->
+<section class="alt-bg" id="ssd-hdd">
+<div class="container text-container">
+<h2>SSD vs HDD: Why Secure Deletion Differs</h2>
+<p>If you take away one lesson from this guide, it should be this: <strong>solid-state drives (SSDs) and traditional hard disk drives (HDDs) handle data deletion entirely differently.</strong></p><figure class="editorial-image reveal"><img alt="Locked storage drive technology illustrating SSD and HDD secure erase differences" decoding="async" loading="lazy" src="https://i.ibb.co/B5FrzdY8/Drive-Locked-Technology.jpg"/></figure>
+<h3>The Challenge with SSD Wear Leveling</h3>
+<p>HDDs write data linearly onto spinning magnetic platters. If you tell an overwrite tool to overwrite Sector 4, it overwrites Sector 4.</p>
+<p>SSDs use flash memory chips. To prevent the flash memory from wearing out unevenly, the SSD's internal controller uses <em>Wear Leveling</em>. If you tell an operating system to overwrite "File A," the SSD controller will often intercept that command, write the new "shredding" data to a <em>completely different</em> part of the chip, and leave the original "File A" intact until the drive runs out of space and needs to run its garbage collection (TRIM) routine.</p>
+<p>This means traditional file shredding software can leave up to 10-20% of your securely deleted files fully recoverable on an SSD.</p>
+<div class="callout reveal">
+<h4>How to securely delete files on SSDs</h4>
+<p>To securely delete an entire SSD (e.g., before selling a computer), use the motherboard BIOS or manufacturer software (like Samsung Magician or ASROCK SSD Secure Erase Tool) to issue an <strong>ATA Secure Erase</strong> command. This blasts a voltage spike across all memory cells, instantly resetting them.</p>
+<p>To securely delete <em>individual specific files</em> on an SSD while keeping your operating system intact, you need a specialized file shredder that bypasses the OS cache, or you should utilize encrypted file containers where the key can be destroyed.</p>
+</div>
+</div>
+</section>
+<!-- Built-in OS Methods -->
+<section id="os-methods">
+<div class="container text-container">
+<h2>How to Permanently Delete Files in Windows and Mac</h2>
+<p>Before installing third-party tools, both major operating systems offer command-line methods to wipe free space. Note: These methods wipe the free space where deleted files <em>used</em> to be. You must delete the files normally first.</p>
+<h3>How to Securely Delete Files on Windows 11 / Windows 10</h3>
+<p>Windows includes a command-line tool called Cipher. While originally designed for <a href="https://www.techradar.com/best/best-encryption-software" rel="noopener noreferrer" target="_blank">encryption</a>, it has a built-in wiping function.</p>
+<ol>
+<li>Delete the files you want to destroy and empty the Recycle Bin.</li>
+<li>Open the Start Menu, type <code>cmd</code>, right-click Command Prompt, and select <strong>Run as administrator</strong>.</li>
+<li>Type the following command: <code>cipher /w:C:\</code> (replace C: with the drive letter you want to wipe).</li>
+<li>Press Enter. Cipher will run three passes: writing zeros, then 255s, then random numbers across all empty space on the drive. This process can take hours.</li>
+</ol><figure class="editorial-image reveal"><img alt="Windows 11 encryption and device protection settings for secure deletion workflows" decoding="async" loading="lazy" src="https://i.ibb.co/5x1DxZg3/windows-11-encryption-efs-bitlocker-and-device-encryption.jpg"/></figure>
+<h3>How to Securely Delete Files on Mac</h3>
+<p>Older versions of macOS had a "Secure Empty Trash" feature, but Apple removed it because of the SSD wear-leveling issues mentioned above (all modern Macs use SSDs). To securely wipe free space on a modern Mac, use the Terminal:</p>
+<ol>
+<li>Open Terminal (Applications &gt; Utilities).</li>
+<li>Type <code>diskutil secureErase freespace 2 /Volumes/Macintosh\ HD</code> (this runs a 7-pass DoD wipe).</li>
+<li>Press Enter. Note: This puts extreme wear on modern Apple Silicon SSDs and is generally not recommended unless strictly necessary for compliance.</li>
+</ol><figure class="editorial-image reveal"><img alt="Folder Lock macOS screenshot for protecting and deleting private files" decoding="async" loading="lazy" src="https://i.ibb.co/fzCSg3ZJ/folder-lock-10-mac-screenshot-800x600.png"/></figure>
+</div>
+</section>
+<!-- S5: Premium SaaS Moment (Why Recommend Folder Lock) -->
+<section class="premium-saas-band" id="recommendation">
+<div class="container saas-grid">
+<div>
+<span class="label" style="color:#d4a373;">Our Recommendation</span>
+<h2 style="font-size: 2.5rem; margin-top:0;">The Tool We Recommend for Most Users</h2>
+<p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 1.5rem;">While command-line tools work, they are slow, affect the entire drive, and are difficult to verify. If you routinely need to delete sensitive financial documents, client files, or personal photos so they cannot be recovered, we recommend using a dedicated software suite.</p>
+<p style="font-size: 1.1rem; color: #cbd5e1;">Of all the options we have reviewed, <strong><a href="https://cloudstorageinfo.org/folder-lock-review" rel="noopener noreferrer" target="_blank">Folder Lock</a></strong> provides the best balance of targeted file shredding, real-time encryption, and user-friendly interface. Instead of waiting hours for a whole-drive wipe, you can right-click and securely shred specific files instantly.</p>
+<div class="saas-chips">
+<span class="saas-chip">DOD 5220.22-M Algorithm</span>
+<span class="saas-chip">AES-256 Encryption Lock</span>
+<span class="saas-chip">Windows &amp; Mobile Supported</span>
+</div>
+<div style="margin-top: 2rem;">
+<a class="btn btn-filled" href="https://www.newsoftwares.net/download/folderlock10-en/folderlock10-en.exe" rel="noopener noreferrer" style="margin-right: 1rem;" target="_blank">Try Folder Lock Free →</a>
+<a class="btn btn-white" href="https://store.newsoftwares.net/?add=fl10" rel="noopener noreferrer" target="_blank">Get the Full Version →</a>
+</div>
+</div>
+<div class="saas-mockup">
+<img alt="Folder Lock 10 main dashboard for file protection and secure deletion" decoding="async" loading="lazy" src="https://i.ibb.co/ynCZTHt1/folder-lock-10-main-screen.png"/>
+</div>
+</div>
+</section>
+<!-- S7: Core Features (V3 Masonry) -->
+<section>
+<div class="container text-container">
+<h2>Why Shredding Software is Superior to Native Tools</h2>
+<p>Using a tool like the one recommended above provides several distinct advantages over built-in OS commands when dealing with specific file destruction.</p>
+</div>
+<figure class="image-strip reveal"><img alt="Folder Lock protect folders screen for targeted privacy controls" decoding="async" loading="lazy" src="https://i.ibb.co/pj61MNWJ/folder-lock-10-screenshot-safeguard-protect-folders.png"/><img alt="Folder Lock clean history tool for removing digital activity traces" decoding="async" loading="lazy" src="https://i.ibb.co/zhn7kpng/folder-lock-10-screenshot-safeguard-clean-history.png"/><img alt="Folder Lock security and privacy settings screenshot" decoding="async" loading="lazy" src="https://i.ibb.co/QjzK8dZg/folder-lock-10-screenshot-settings-security-privacy.png"/></figure><div class="container masonry-grid" style="margin-top: 2rem;">
+<div class="masonry-card reveal">
+<h4>Targeted Shredding</h4>
+<p>Unlike Windows Cipher which wipes the entire free space of a hard drive (taking hours), advanced shredding software lets you target a single document, video, or folder, overwriting only those precise sectors in a matter of seconds.</p>
+</div>
+<div class="masonry-card reveal">
+<h4>Cryptographic Lock Alternates</h4>
+<p>Instead of enduring the wear-and-tear of shredding on an SSD, you can utilize military-grade AES-256 encryption. By placing a file in an encrypted vault, the raw data becomes entirely useless gibberish to anyone without your master key.</p>
+</div>
+<div class="masonry-card reveal">
+<h4>Custom Wiping Algorithms</h4>
+<p>Select the exact level of data destruction required for your situation. Options range from a rapid single-pass of zeroes or random numbers, up to the military-grade DoD 5220.22-M standard, and peaking at the exhaustive 35-pass Peter Gutmann algorithm.</p>
+</div>
+<div class="masonry-card reveal">
+<h4>Retroactive Free Space Wiping</h4>
+<p>If you have already emptied your Recycle Bin, that data is still lurking on your hard drive. Premium shredding tools can specifically target and wipe the empty sectors of your storage disk, permanently eradicating remnants of previously deleted files without touching your current data.</p>
+</div>
+<div class="masonry-card reveal">
+<h4>Failsafe Exclusions</h4>
+<p>Accidentally shredding your own secure backups is a nightmare scenario. Advanced tools allow you to configure strict exclusion lists, automatically preventing the shredder from touching your encrypted vaults, portable lockers, or hidden system folders.</p>
+</div>
+<div class="masonry-card reveal">
+<h4>Digital Footprint Erasure</h4>
+<p>Deleting a file is only half the battle. Your operating system keeps detailed logs of your activities. Comprehensive privacy suites will also purge your clipboard data, media player history, "Run" command logs, and temporary Windows files to ensure absolute confidentiality.</p>
+</div>
+</div>
+</section>
+<!-- S8: Comparison Table (V6 Highlighted Row) -->
+<section class="alt-bg" id="comparison">
+<div class="container text-container">
+<h2>File Deletion Methods Compared</h2><figure class="editorial-image reveal"><img alt="Disk encryption software comparison concept for secure deletion methods" decoding="async" loading="lazy" src="https://i.ibb.co/TB97SChY/best-disk-encryption-software.jpg"/></figure>
+<div class="comparison-wrapper reveal">
+<table class="comp-table">
+<thead>
+<tr>
+<th>Method</th>
+<th>Difficulty</th>
+<th>Security Level</th>
+<th>Best For</th>
+<th>Limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OS Recycle Bin / Trash</td>
+<td>Very Low<span aria-hidden="true" class="difficulty-bar" style="--fill:15%;"></span></td>
+<td>Zero (Easily Recovered)</td>
+<td>Accidental deletion safety</td>
+<td>Leaves data entirely intact on disk</td>
+</tr>
+<tr>
+<td>Windows Cipher Command</td>
+<td>Medium<span aria-hidden="true" class="difficulty-bar" style="--fill:50%;"></span></td>
+<td>High</td>
+<td>Free whole-drive wiping</td>
+<td>Takes hours; command-line only</td>
+</tr>
+<tr>
+<td>BIOS ATA Secure Erase</td>
+<td>High<span aria-hidden="true" class="difficulty-bar" style="--fill:85%;"></span></td>
+<td>Maximum</td>
+<td>Pre-sale SSD wiping</td>
+<td>Erases entire OS; complex setup</td>
+</tr>
+<tr class="row-highlight">
+<td>Folder Lock (File Shredder)</td>
+<td>Low<span aria-hidden="true" class="difficulty-bar" style="--fill:25%;"></span></td>
+<td>Maximum (DoD Standard)</td>
+<td>Targeted daily file destruction</td>
+<td>Commercial software (requires download)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- S9: Tutorial -->
+<section>
+<div class="container text-container">
+<h2>How to Securely Delete Files Using <a href="https://aijourn.com/newsoftwares-llc-releases-folder-lock-10-1-13-for-windows-and-launches-first-macos-edition/" rel="noopener noreferrer" target="_blank">Folder Lock</a></h2>
+<p>If you choose to use third-party software, the process is streamlined to avoid the command prompt.</p><figure class="editorial-image reveal"><img alt="Folder Lock software interface for selecting files and folders to shred" decoding="async" loading="lazy" src="https://i.ibb.co/PGp2qhK9/folder-lock-10-screenshot-2023-alt.png"/></figure>
+<ol>
+<li><strong>Install the Software:</strong> Download and install Folder Lock on your PC.</li>
+<li><strong>Access the Shredding Utility:</strong> Open the application, navigate to the safeguard dashboard, and select the dedicated file shredding module.</li>
+<li><strong>Select your target:</strong> Click to add individual files, entire folders, or even whole drive partitions. Browse your computer to locate the sensitive documents you wish to destroy.</li>
+<li><strong>Choose the wiping algorithm:</strong> Open the shredding preferences to select your overwrite intensity. You can choose a basic zero-fill, random numbers, the 3-pass DoD 5220.22-M standard, or the extreme 35-pass Gutmann method depending on your security needs.</li>
+<li><strong>Execute the shred:</strong> Confirm the warning prompt and initiate the shred. The software will overwrite the raw sectors and permanently remove the directory index. <em>Note: This action cannot be undone by any recovery software.</em></li>
+</ol>
+</div>
+</section>
+<!-- S16: Troubleshooting / Risk Meter / Exact Queries -->
+<section class="alt-bg" id="troubleshooting">
+<div class="container text-container">
+<h2>Troubleshooting &amp; Specific Use Cases</h2>
+<!-- Interactive Risk Meter -->
+<div class="risk-meter-box reveal">
+<h3 style="margin-top:0;">Data Recovery Risk Assessor</h3>
+<p>Assess how likely it is that someone could recover your deleted files based on your actions.</p>
+<div class="risk-meter-options" id="risk-options">
+<label><input name="risk" type="radio" value="high"/> I just dragged the file to the Recycle Bin and emptied it.</label>
+<label><input name="risk" type="radio" value="med"/> I used Windows Cipher to wipe the free space, but on an SSD.</label>
+<label><input name="risk" type="radio" value="low"/> I shredded the file using a 3-pass overwrite tool on a mechanical HDD.</label>
+<label><input name="risk" type="radio" value="none"/> I performed an ATA Secure Erase on my SSD from the BIOS.</label>
+</div>
+<div class="risk-meter-bar">
+<div class="risk-fill" id="risk-fill"></div>
+</div>
+<p class="risk-result-text" id="risk-result">Select an option above to see your risk level.</p>
+</div><figure class="editorial-image reveal"><img alt="Mobile data security and factory reset illustration for unrecoverable phone deletion" decoding="async" loading="lazy" src="https://i.ibb.co/r2P4QWVF/mobile-data-security-factory-reset.jpg"/></figure>
+<h3>How Can I Fully Delete Texts So That They Can Not Be Recovered?</h3>
+<p>Mobile device storage operates entirely differently than a PC hard drive. Modern iOS and Android phones encrypt their internal storage by default. To fully delete text messages so they cannot be recovered by police, hackers, or forensic software, you must delete the texts from the app, then ideally perform a full Factory Data Reset of the phone. The factory reset throws away the master encryption key, meaning the raw flash memory containing the texts becomes permanently scrambled.</p>
+<h3>How to Permanently Delete Data from Phone So It Cannot Be Recovered</h3>
+<p>For Android and iPhone, the only guaranteed method to permanently wipe the entire device is a Factory Reset. Mobile operating systems tightly sandbox their applications, meaning a third-party "shredder app" lacks the root-level permissions necessary to overwrite sectors occupied by other programs. If you only want to protect specific files rather than wiping the whole phone, your safest alternative to deletion is utilizing a secure mobile vault app to encrypt the files with AES-256, rendering the underlying data useless to anyone without the master password.</p>
+<h3>How to Recover Files from a Locked or Encrypted Folder</h3>
+<p>We receive many queries asking for methods to <a href="https://superuser.com/questions/598584/cant-unlock-the-folders-that-i-locked-with-folder-lock-program" rel="noopener noreferrer" target="_blank">recover files</a> deleted from a password-protected folder, or how to delete locked files when the password is forgotten. <strong>If the files were secured using genuine encryption (like Folder Lock), there is no backdoor.</strong></p>
+<p>Owner-safe recovery steps:</p>
+<ul>
+<li>Check if the software created an unencrypted backup in your synchronized cloud storage.</li>
+<li>Look for the master serial number or license key email. Some legacy software versions allow password resets using the master license key.</li>
+<li>If the folder is locked by OS file permissions (not encrypted), you can often regain access by taking Ownership of the folder via the Windows Security tab in file properties.</li>
+<li>Be wary of online tools claiming to "crack" encrypted lockers. Most are malware.</li>
+</ul>
+</div>
+</section>
+<!-- S13: Pricing (V1) -->
+<section id="pricing">
+<div class="container text-container">
+<h2>Folder Lock Pricing: What You Get</h2><figure class="editorial-image reveal product-boxshot"><img alt="Folder Lock 10 product boxshot for secure file deletion software" decoding="async" loading="lazy" src="https://i.ibb.co/V0Sw4tk7/folder-lock-10-boxshot.png"/></figure>
+<p>If you decide to upgrade from native command-line wiping to a dedicated interface, here is what the software tiers provide.</p>
+<div style="margin-top: 2rem;">
+<div class="pricing-row reveal">
+<div class="pricing-details">
+<h4>Free Trial Version</h4>
+<p>Basic file locking, limited secure deletion features, suitable for testing the interface.</p>
+</div>
+<a class="btn btn-outline" href="https://www.newsoftwares.net/download/folderlock10-en/folderlock10-en.exe" rel="noopener noreferrer" target="_blank">Download Free →</a>
+</div>
+<div class="pricing-row reveal" style="border-left: 4px solid var(--color-primary-accent);">
+<div class="pricing-details">
+<h4>Full Pro Version</h4>
+<p>Unlimited DOD-standard file shredding, AES-256 encryption lockers, stealth mode, and cloud syncing.</p>
+</div>
+<a class="btn btn-filled" href="https://store.newsoftwares.net/?add=fl10" rel="noopener noreferrer" target="_blank">View Full Pricing →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- S20: FAQ (V6) -->
+<section class="alt-bg" id="faq">
+<div class="container text-container">
+<h2>Frequently Asked Questions</h2>
+<div class="faq-group">
+<h3 class="faq-group-title">The Basics of Secure Deletion</h3>
+<div class="accordion-item reveal">
+<button aria-expanded="false" class="accordion-btn">What is the difference between deleting and shredding a file?</button>
+<div class="accordion-content">
+<div class="accordion-content-inner">
+                                Deleting a file simply removes its location index from the file system, leaving the raw data intact and recoverable. Shredding a file actively overwrites those physical data sectors with random zeros and ones, destroying the original data permanently.
+                            </div>
+</div>
+</div>
+<div class="accordion-item reveal">
+<button aria-expanded="false" class="accordion-btn">How many times do you need to overwrite a file to truly delete it?</button>
+<div class="accordion-content">
+<div class="accordion-content-inner">
+                                For modern high-density hard drives, a single pass of random data (or a zero-fill) is almost always sufficient to prevent software-based and hardware-based forensic recovery. However, corporate compliance policies often still require a 3-pass overwrite (DoD standard) for extreme security.
+                            </div>
+</div>
+</div>
+</div>
+<div class="faq-group">
+<h3 class="faq-group-title">Specific Devices &amp; Platforms</h3>
+<div class="accordion-item reveal">
+<button aria-expanded="false" class="accordion-btn">How to securely delete files from an SSD?</button>
+<div class="accordion-content">
+<div class="accordion-content-inner">
+                                Because SSDs use Wear Leveling, standard shredding tools are unreliable. To securely wipe an entire SSD, use the motherboard BIOS or manufacturer software to issue an ATA Secure Erase command. If you must delete a single file on an SSD, using encryption is safer than trying to overwrite it.
+                            </div>
+</div>
+</div>
+<div class="accordion-item reveal">
+<button aria-expanded="false" class="accordion-btn">Can permanently deleted files be recovered?</button>
+<div class="accordion-content">
+<div class="accordion-content-inner">
+                                If a file was "permanently deleted" by simply emptying the Recycle Bin, yes, data recovery software can easily retrieve it. If it was permanently deleted using a file shredder that successfully overwrote the sectors, no, it cannot be recovered by any known commercial or forensic method.
+                            </div>
+</div>
+</div>
+</div>
+<div class="faq-group">
+<h3 class="faq-group-title">Cloud &amp; Social Media</h3>
+<div class="accordion-item reveal">
+<button aria-expanded="false" class="accordion-btn">Can I recover permanently deleted files from Google Drive?</button>
+<div class="accordion-content">
+<div class="accordion-content-inner">
+                                If you empty your Google Drive trash, the files are generally gone. However, Google Workspace administrators have a 25-day window to restore permanently deleted files for users within their organization using the Admin console.
+                            </div>
+</div>
+</div>
+<div class="accordion-item reveal">
+<button aria-expanded="false" class="accordion-btn">Can I permanently delete my Facebook account?</button>
+<div class="accordion-content">
+<div class="accordion-content-inner">
+                                Yes. When you select the option to permanently delete your Facebook account, the platform enforces a 30-day grace period. After 30 days, your account and all associated data are wiped from their active servers, though some log data may remain in backup servers for up to 90 days.
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- S22: Final Verdict -->
+<section>
+<div class="container text-container" style="text-align: center;">
+<span class="label">Our Verdict</span>
+<h2>The Bottom Line</h2><figure class="editorial-image reveal"><img alt="Security shield protecting private data after secure file deletion" decoding="async" loading="lazy" src="https://i.ibb.co/bjywWFhL/security-shield-protecting.jpg"/></figure>
+<p>Data remanence is a serious privacy risk. Whether you are discarding an old hard drive or protecting sensitive tax documents, standard deletion is never enough. For full drive sanitization, use native Cipher commands or BIOS ATA erase tools. For daily, targeted protection of individual files and folders, implementing a secure file shredder and encryption locker like Folder Lock is the safest, most practical approach.</p>
+<div style="margin-top: 2rem;">
+<a class="btn btn-outline" href="https://www.newsoftwares.net/download/folderlock10-en/folderlock10-en.exe" rel="noopener noreferrer" style="margin-right: 1rem;" target="_blank">Try Folder Lock free →</a>
+<a class="btn btn-outline" href="https://store.newsoftwares.net/?add=fl10" rel="noopener noreferrer" target="_blank">Get the full version →</a>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+<div class="footer-brand"><span aria-hidden="true" class="brand-mark">
+<svg focusable="false" role="img" viewbox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#000000" height="56" width="56" x="4" y="4"></rect>
+<path d="M32 10L49 17V31C49 42 42.2 51.4 32 55C21.8 51.4 15 42 15 31V17L32 10Z" fill="#E63329"></path>
+<path d="M24 31.5L29.2 36.7L41 24.8" fill="none" stroke="#FFFFFF" stroke-linecap="square" stroke-linejoin="miter" stroke-width="5"></path>
+<path d="M4 4H60V60H4V4Z" fill="none" stroke="#FFFFFF" stroke-width="2"></path>
+</svg>
+</span><h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top:0;" aria-label="Secure Erase Guide"><span>Secure</span><span>Erase</span><span>Guide</span></h3></div>
+<p style="font-size: 0.9rem; color: #a1b0be;">Your independent resource for data destruction, privacy, and digital hygiene.</p>
+</div>
+<div>
+<h4 style="margin-top:0; font-size: 1.1rem;">Guide Sections</h4>
+<ul style="list-style:none; margin:0; padding:0; font-size: 0.9rem;">
+<li style="margin-bottom:0.5rem;"><a href="#methods" rel="noopener noreferrer" target="_blank">OS Deletion Methods</a></li>
+<li style="margin-bottom:0.5rem;"><a href="#ssd-hdd" rel="noopener noreferrer" target="_blank">SSD vs HDD</a></li>
+<li style="margin-bottom:0.5rem;"><a href="#comparison" rel="noopener noreferrer" target="_blank">Software Comparison</a></li>
+<li style="margin-bottom:0.5rem;"><a href="#troubleshooting" rel="noopener noreferrer" target="_blank">Recovery Troubleshooting</a></li>
+</ul>
+</div>
+<div>
+<h4 style="margin-top:0; font-size: 1.1rem;">Related Products</h4>
+<ul style="list-style:none; margin:0; padding:0; font-size: 0.9rem;">
+<li style="margin-bottom:0.5rem;"><a href="https://www.newsoftwares.net/" rel="noopener noreferrer" target="_blank">Folder Lock</a></li>
+<li style="margin-bottom:0.5rem;"><a href="https://www.analyticsinsight.net/tech-news/how-to-encrypt-and-protect-usb-flash-drives-external-drives-and-memory-cards" rel="noopener noreferrer" target="_blank">USB Secure</a></li>
+<li style="margin-bottom:0.5rem;"><a href="https://www.windowscentral.com/how-encrypt-data-storing-it-cloud-and-why-you-should" rel="noopener noreferrer" target="_blank">Cloud Secure</a></li>
+</ul>
+</div>
+<div><div aria-hidden="true" class="grid-legend"><div><span>COLOR</span><span>#E63329 / #000000</span></div><div><span>TYPE</span><span>BARLOW + WORK SANS</span></div><div><span>GRID</span><span>24PX BASELINE</span></div><div><span>FORM</span><span>ZERO RADIUS</span></div></div></div></div>
+<div class="footer-disclosure">
+<p>This site operates as an independent editorial resource. Some links may earn a referral commission at no cost to you. Product recommendations reflect editorial judgment and independent assessment.</p>
+<p style="margin-top: 1rem;">Folder Lock is developed by <a href="https://www.newsoftwares.net" rel="noopener noreferrer" target="_blank">NewSoftwares.net</a>. © 2026 Secure Erase Guide.</p>
+</div>
+</div>
+</footer>
+<!-- Scripts & Schema -->
+<script type="application/ld+json">
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 24) {
+            header.style.boxShadow = '0 2px 0 rgba(230,51,41,0.18)';
+        } else {
+            header.style.boxShadow = 'none';
+        }
+    });
+
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+            hamburger.setAttribute('aria-expanded', !expanded);
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    const accordions = document.querySelectorAll('.accordion-btn');
+    accordions.forEach(acc => {
+        acc.addEventListener('click', function() {
+            this.classList.toggle('active');
+            const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !expanded);
+            const content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+
+    const switchBtns = document.querySelectorAll('.switcher-btn');
+    const switchContents = document.querySelectorAll('.switcher-content');
+    switchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchBtns.forEach(b => b.classList.remove('active'));
+            switchContents.forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            const target = document.getElementById(btn.dataset.target);
+            if (target) target.classList.add('active');
+        });
+    });
+
+    const devicePicker = document.getElementById('device-picker');
+    const pickerResults = document.querySelectorAll('.picker-result');
+    if (devicePicker) {
+        devicePicker.addEventListener('change', (e) => {
+            pickerResults.forEach(r => r.style.display = 'none');
+            if(e.target.value) {
+                const result = document.getElementById('picker-result-' + e.target.value);
+                if(result) {
+                    result.style.display = 'block';
+                    result.style.animation = 'fadeIn 0.3s ease-in';
+                    result.querySelectorAll('.difficulty-bar').forEach(bar => bar.classList.add('is-filled'));
+                }
+            }
+        });
+    }
+
+    const riskRadios = document.querySelectorAll('input[name="risk"]');
+    const riskFill = document.getElementById('risk-fill');
+    const riskResult = document.getElementById('risk-result');
+    riskRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if(val === 'high') {
+                riskFill.style.width = '95%';
+                riskFill.style.background = '#E63329';
+                riskResult.innerText = "CRITICAL RISK: Your files are completely intact. Anyone with free recovery software can restore them instantly.";
+                riskResult.style.color = '#E63329';
+            } else if(val === 'med') {
+                riskFill.style.width = '60%';
+                riskFill.style.background = '#000000';
+                riskResult.innerText = "MODERATE RISK: SSD Wear Leveling means parts of the files likely avoided the overwrite process. Forensic recovery is possible.";
+                riskResult.style.color = '#000000';
+            } else if(val === 'low') {
+                riskFill.style.width = '5%';
+                riskFill.style.background = '#111111';
+                riskResult.innerText = "LOW RISK: Assuming the hard drive is functional, a 3-pass wipe destroys the data beyond commercial recovery limits.";
+                riskResult.style.color = '#111111';
+            } else if(val === 'none') {
+                riskFill.style.width = '1%';
+                riskFill.style.background = '#111111';
+                riskResult.innerText = "ZERO RISK: ATA Secure Erase resets the flash memory cells via hardware voltage. Data is unrecoverable.";
+                riskResult.style.color = '#111111';
+            }
+        });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                entry.target.querySelectorAll('.difficulty-bar').forEach(bar => bar.classList.add('is-filled'));
+                if (entry.target.classList.contains('difficulty-bar')) entry.target.classList.add('is-filled');
+            }
+        });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal, .difficulty-bar').forEach(el => revealObserver.observe(el));
+
+    const table = document.querySelector('.comp-table');
+    if (table) {
+        const cells = table.querySelectorAll('th, td');
+        cells.forEach(cell => {
+            cell.addEventListener('mouseenter', () => {
+                const index = Array.from(cell.parentElement.children).indexOf(cell) + 1;
+                table.querySelectorAll('.col-hover').forEach(el => el.classList.remove('col-hover'));
+                table.querySelectorAll(`tr > *:nth-child(${index})`).forEach(el => el.classList.add('col-hover'));
+            });
+        });
+        table.addEventListener('mouseleave', () => {
+            table.querySelectorAll('.col-hover').forEach(el => el.classList.remove('col-hover'));
+        });
+    }
+
+    const nav = document.querySelector('.nav-links');
+    const navItems = nav ? Array.from(nav.querySelectorAll('a[href^="#"]')) : [];
+    function moveUnderline(el) {
+        if (!nav || !el) return;
+        const navRect = nav.getBoundingClientRect();
+        const rect = el.getBoundingClientRect();
+        nav.style.setProperty('--nav-underline-left', (rect.left - navRect.left) + 'px');
+        nav.style.setProperty('--nav-underline-width', rect.width + 'px');
+    }
+    navItems.forEach(item => {
+        item.addEventListener('mouseenter', () => moveUnderline(item));
+        item.addEventListener('focus', () => moveUnderline(item));
+    });
+    if (nav) {
+        nav.addEventListener('mouseleave', () => {
+            const active = nav.querySelector('a.active') || navItems[0];
+            moveUnderline(active);
+        });
+    }
+
+    const sectionLinks = document.querySelectorAll('.section-number-nav a');
+    const sections = Array.from(sectionLinks).map(link => document.getElementById(link.dataset.section)).filter(Boolean);
+    function countTo(link) {
+        const span = link.querySelector('span');
+        const finalNum = parseInt(link.dataset.final || '0', 10);
+        if (!span || link.dataset.counted === 'true') return;
+        link.dataset.counted = 'true';
+        let current = 0;
+        const timer = setInterval(() => {
+            current += 1;
+            span.textContent = String(current).padStart(2, '0');
+            if (current >= finalNum) clearInterval(timer);
+        }, 24);
+    }
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id;
+            sectionLinks.forEach(link => {
+                const isActive = link.dataset.section === id;
+                link.classList.toggle('active', isActive);
+                if (isActive) countTo(link);
+            });
+            navItems.forEach(item => {
+                const isActive = item.getAttribute('href') === '#' + id;
+                item.classList.toggle('active', isActive);
+                if (isActive) moveUnderline(item);
+            });
+        });
+    }, { threshold: 0.35, rootMargin: '-20% 0px -45% 0px' });
+    sections.forEach(sec => sectionObserver.observe(sec));
+    window.addEventListener('resize', () => {
+        const active = nav ? nav.querySelector('a.active') || navItems[0] : null;
+        moveUnderline(active);
+    });
+    setTimeout(() => moveUnderline(nav ? (nav.querySelector('a.active') || navItems[0]) : null), 80);
+});
+</script>
+<script defer="">
+        document.addEventListener('DOMContentLoaded', () => {
+            // Header scroll effect
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+                } else {
+                    header.style.boxShadow = 'none';
+                }
+            });
+
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+                    hamburger.setAttribute('aria-expanded', !expanded);
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // Accordion toggle
+            const accordions = document.querySelectorAll('.accordion-btn');
+            accordions.forEach(acc => {
+                acc.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+                    this.setAttribute('aria-expanded', !expanded);
+                    
+                    const content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // Signature Detail: View Switcher (Standard vs Secure)
+            const switchBtns = document.querySelectorAll('.switcher-btn');
+            const switchContents = document.querySelectorAll('.switcher-content');
+            switchBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchBtns.forEach(b => b.classList.remove('active'));
+                    switchContents.forEach(c => c.classList.remove('active'));
+                    
+                    btn.classList.add('active');
+                    document.getElementById(btn.dataset.target).classList.add('active');
+                });
+            });
+
+            // Interactive Element: Method Picker
+            const devicePicker = document.getElementById('device-picker');
+            const pickerResults = document.querySelectorAll('.picker-result');
+            if (devicePicker) {
+                devicePicker.addEventListener('change', (e) => {
+                    pickerResults.forEach(r => r.style.display = 'none');
+                    if(e.target.value) {
+                        const result = document.getElementById('picker-result-' + e.target.value);
+                        if(result) {
+                            result.style.display = 'block';
+                            result.style.animation = 'fadeIn 0.3s ease-in';
+                        }
+                    }
+                });
+            }
+
+            // Interactive Element: Risk Meter
+            const riskRadios = document.querySelectorAll('input[name="risk"]');
+            const riskFill = document.getElementById('risk-fill');
+            const riskResult = document.getElementById('risk-result');
+            
+            riskRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const val = e.target.value;
+                    if(val === 'high') {
+                        riskFill.style.width = '95%';
+                        riskFill.style.background = '#e74c3c';
+                        riskResult.innerText = "CRITICAL RISK: Your files are completely intact. Anyone with free recovery software can restore them instantly.";
+                        riskResult.style.color = '#e74c3c';
+                    } else if(val === 'med') {
+                        riskFill.style.width = '60%';
+                        riskFill.style.background = '#f39c12';
+                        riskResult.innerText = "MODERATE RISK: SSD Wear Leveling means parts of the files likely avoided the overwrite process. Forensic recovery is possible.";
+                        riskResult.style.color = '#f39c12';
+                    } else if(val === 'low') {
+                        riskFill.style.width = '5%';
+                        riskFill.style.background = '#27ae60';
+                        riskResult.innerText = "LOW RISK: Assuming the hard drive is functional, a 3-pass wipe destroys the data beyond commercial recovery limits.";
+                        riskResult.style.color = '#27ae60';
+                    } else if(val === 'none') {
+                        riskFill.style.width = '1%';
+                        riskFill.style.background = '#2c3e50';
+                        riskResult.innerText = "ZERO RISK: ATA Secure Erase resets the flash memory cells via hardware voltage. Data is unrecoverable.";
+                        riskResult.style.color = '#2c3e50';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
